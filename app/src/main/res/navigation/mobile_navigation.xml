@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/mobile_navigation"
+            app:startDestination="@id/simuladorFragment">
+
+    <fragment android:id="@+id/simuladorFragment"
+              android:name="com.example.fletesya.ui.simulador.current.SimuladorFragment"
+              android:label="simulador_fragment" tools:layout="@layout/simulador_fragment"/>
+    <fragment android:id="@+id/futureSimFragment"
+              android:name="com.example.fletesya.ui.simulador.future.list.futureSimFragment"
+              android:label="future_sim_fragment" tools:layout="@layout/future_sim_fragment"/>
+    <fragment android:id="@+id/futureSimDetails"
+              android:name="com.example.fletesya.ui.simulador.future.details.futureSimDetails"
+              android:label="future_sim_details_fragment" tools:layout="@layout/future_sim_details_fragment"/>
+    <fragment android:id="@+id/settingsFragment" android:name="com.example.fletesya.ui.configuracion.SettingsFragment"
+              android:label="SettingsFragment"/>
+</navigation>

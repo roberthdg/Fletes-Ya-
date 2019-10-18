@@ -1,4 +1,4 @@
-package com.example.fletesya.ui
+package com.example.fletesya
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,9 +25,12 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupActionBarWithNavController(this, navController)
 
+
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null)
     }
 }
+

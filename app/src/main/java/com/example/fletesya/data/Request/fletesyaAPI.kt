@@ -1,8 +1,7 @@
-package com.example.fletesya.data
-import com.example.fletesya.ui.simulador.current.SimuladorFragment
+/*package com.example.fletesya.data
+import com.example.fletesya.ui.simulador.SimuladorFragment
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import retrofit2.http.GET
-import retrofit2.http.Query
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -53,3 +52,5 @@ interface fletesyaAPI {
         }
     }
 }
+
+        */

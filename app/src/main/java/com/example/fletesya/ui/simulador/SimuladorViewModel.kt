@@ -1,4 +1,4 @@
-package com.example.fletesya.ui.simulador.current
+package com.example.fletesya.ui.simulador
 
 import androidx.lifecycle.ViewModel;
 

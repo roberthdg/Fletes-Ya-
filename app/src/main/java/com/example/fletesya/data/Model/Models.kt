@@ -1,4 +1,4 @@
-package com.example.fletesya.data.models
+package com.example.fletesya.data.Model
 
 class subastaListado(val data: List<Subasta>)
 

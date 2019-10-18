@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.simulador.current.SimuladorFragment" android:orientation="vertical">
+        tools:context=".ui.simulador.SimuladorFragment" android:orientation="vertical">
 
     <Button
             android:text="Button"
@@ -12,7 +12,7 @@
             android:layout_height="78dp" android:id="@+id/button"/>
 
     <TextView
-            android:id="@+id/texxxt"
+            android:id="@+id/titulo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Simulador"/>

@@ -1,9 +1,9 @@
-package com.example.fletesya.data.Model
+/*package com.example.fletesya.data.Model
 
-class subastaListado(val data: List<Subasta>)
+data class subastaListado(val data: List<Subasta>)
 
-class Subasta(val id_subasta: Int, val comuna_origen: String)
+data class Subasta(val id_subasta: Int, val comuna_origen: String)
 
-class logoListado(val logos: List<Logo>)
+data class logoListado(val logos: List<Logo>)
 
-class Logo(val logo: String)
+data class Logo(val logo: String) */

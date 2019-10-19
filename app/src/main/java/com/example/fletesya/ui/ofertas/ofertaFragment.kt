@@ -9,13 +9,8 @@ import android.view.ViewGroup
 
 import com.example.fletesya.R
 import com.example.fletesya.data.Request.RequestAPI
+import com.example.fletesya.data.Response.ratesResponse
 import com.example.fletesya.data.Response.subastaResponse
-import kotlinx.android.synthetic.main.oferta_fragment.*
-import kotlinx.android.synthetic.main.simulador_fragment.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,8 +27,14 @@ class ofertaFragment : Fragment() {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    private val retrofit2 = Retrofit.Builder().baseUrl("https://fletesya.cl/api/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
     private val postsApi = retrofit.create(RequestAPI::class.java)
+    private val postsApi2 = retrofit2.create(RequestAPI::class.java)
     private val ratesResponse = postsApi.ratesListado()
+    private val subastaResponse = postsApi2.subastaLisatdo()
 
     private lateinit var viewModel: ofertaViewModel
 
@@ -50,11 +51,11 @@ class ofertaFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ofertaViewModel::class.java)
         // TODO: Use the ViewModel
-        ratesResponse.enqueue(object : Callback<subastaResponse> {
-            override fun onFailure(call: Call<subastaResponse>, t: Throwable) {
+        ratesResponse.enqueue(object : Callback<ratesResponse> {
+            override fun onFailure(call: Call<ratesResponse>, t: Throwable) {
                 println("lllllllllooooserrrr")
             }
-            override fun onResponse(call: Call<subastaResponse>, response: Response<subastaResponse>){
+            override fun onResponse(call: Call<ratesResponse>, response: Response<ratesResponse>){
                 val mResponse = response.body()
                 println("USD: ${mResponse!!.rates!!.USD.toString()}")
                 println("CAD: ${mResponse!!.rates!!.CAD.toString()}")
@@ -64,6 +65,25 @@ class ofertaFragment : Fragment() {
                  }*/
             }
         })
+
+        subastaResponse.enqueue(object : Callback<subastaResponse> {
+            override fun onFailure(call: Call<subastaResponse>, t: Throwable) {
+                println("wait a minute boi: "+ t.toString())
+            }
+            override fun onResponse(call: Call<subastaResponse>, response: Response<subastaResponse>){
+                val sResponse = response.body()
+                println("subasta response: "+ sResponse!!.data.toString())
+                /*
+                    println("USD: ${mResponse!!.rates!!.USD.toString()}")
+                    println("CAD: ${mResponse!!.rates!!.CAD.toString()}")
+                    CoroutineScope(Dispatchers.Main).launch {
+                      usd_text.text = "USD: ${mResponse!!.rates!!.USD.toString()}"
+                      cad_text.text = "CAD: ${mResponse!!.rates!!.CAD.toString()}"
+                    }
+                 */
+            }
+        })
+
 
     }
 }

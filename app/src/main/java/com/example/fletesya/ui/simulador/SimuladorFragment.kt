@@ -6,9 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 
 import com.example.fletesya.R
-//import com.example.fletesya.data.fletesyaAPI
 import com.example.fletesya.data.Model.logoListado
 import com.example.fletesya.data.Model.subastaListado
 import com.google.gson.GsonBuilder
@@ -18,6 +18,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import okhttp3.*
 import java.io.IOException
+import com.squareup.picasso.Picasso
 
 
 class SimuladorFragment : Fragment() {
@@ -32,6 +33,7 @@ class SimuladorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as AppCompatActivity).supportActionBar?.title = "Subastas (gsonBuilder)"
         return inflater.inflate(R.layout.simulador_fragment, container, false)
     }
 
@@ -86,16 +88,25 @@ class SimuladorFragment : Fragment() {
                 val gson = GsonBuilder().create()
 
                 val subastas = gson.fromJson(body, subastaListado::class.java)
+
                 val logos = gson.fromJson(body, logoListado::class.java)
 
-                val result1 = subastas.toString()
-                print("debug: ${result1}")
+                var result1 = "\n"
+                var i = 0
+
+                subastas.data.forEach( {
+                    result1 = result1+"Subasta #"+subastas.data[i].id_subasta.toString()+" desde: "+ subastas.data[i].comuna_origen +" hasta "+ subastas.data[i].comuna_destino+"\n\n"
+                    // print("debug: ${result1}")
+                    i=i+1
+                })
+
+
                 val result2 = logos.toString()
                 print("debug: ${result2}")
 
                 CoroutineScope(IO).launch {
                 setTextOnMain(result1)
-                setTextOnMain(result2)
+               // setTextOnMain(result2)
                 }
 
 

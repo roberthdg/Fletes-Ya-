@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
             android:id="@+id/simuladorFragment"
-            android:icon="@drawable/ic_main"
-            android:title="Simulador"/>
+            android:icon="@drawable/ic_list"
+            android:title="Subastas"/>
     <item
             android:id="@+id/futureSimFragment"
-            android:icon="@drawable/ic_list"
-            android:title="Subasta"/>
+            android:icon="@drawable/ic_local_offer"
+            android:title="Ofertas"/>
     <item
             android:id="@+id/settingsFragment"
-            android:icon="@drawable/ic_subasta"
-            android:title="Settings"/>
+            android:icon="@drawable/ic_settings"
+            android:title="Configuración"/>
 </menu>

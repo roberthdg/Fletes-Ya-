@@ -11,15 +11,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Ofertas"/>
-    <TextView
-            android:id="@+id/usd_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="USD"/>
-    <TextView
-            android:id="@+id/cad_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="CAD"/>
+
 
 </LinearLayout>

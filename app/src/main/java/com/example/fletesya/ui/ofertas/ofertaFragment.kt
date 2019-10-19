@@ -6,11 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 import com.example.fletesya.R
 import com.example.fletesya.data.Request.RequestAPI
 import com.example.fletesya.data.Response.ratesResponse
 import com.example.fletesya.data.Response.subastaResponse
+import kotlinx.android.synthetic.main.oferta_fragment.*
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,6 +48,8 @@ class ofertaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+       //tituloOfertas.text="basjnasdjasdj"
+        (activity as AppCompatActivity).supportActionBar?.title = "Ofertas (Retrofit)"
         return inflater.inflate(R.layout.oferta_fragment, container, false)
     }
 
@@ -51,6 +57,8 @@ class ofertaFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ofertaViewModel::class.java)
         // TODO: Use the ViewModel
+
+
         ratesResponse.enqueue(object : Callback<ratesResponse> {
             override fun onFailure(call: Call<ratesResponse>, t: Throwable) {
                 println("lllllllllooooserrrr")
@@ -72,7 +80,21 @@ class ofertaFragment : Fragment() {
             }
             override fun onResponse(call: Call<subastaResponse>, response: Response<subastaResponse>){
                 val sResponse = response.body()
-                println("subasta response: "+ sResponse!!.data.toString())
+                println("subasta response: "+ sResponse!!.logos.toString())
+
+                var result1 = "\n"
+                var i = 0
+
+                sResponse.logos.forEach( {
+                    result1 = result1+"-"+sResponse.logos[i].logo+"\n\n"
+                    // print("debug: ${result1}")
+                    i=i+1
+                })
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    tituloOfertas.text = result1
+                }
+
                 /*
                     println("USD: ${mResponse!!.rates!!.USD.toString()}")
                     println("CAD: ${mResponse!!.rates!!.CAD.toString()}")
@@ -83,7 +105,5 @@ class ofertaFragment : Fragment() {
                  */
             }
         })
-
-
     }
 }

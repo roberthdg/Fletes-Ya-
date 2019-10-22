@@ -11,7 +11,7 @@
               android:name="com.example.fletesya.ui.ofertas.ofertaFragment"
               android:label="future_sim_fragment" tools:layout="@layout/oferta_fragment"/>
     <fragment android:id="@+id/futureSimDetails"
-              android:name="com.example.fletesya.ui.simulador.future.details.futureSimDetails"
+              android:name="com.example.fletesya.ui.subasta.SubastaFragment"
               android:label="future_sim_details_fragment" tools:layout="@layout/future_sim_details_fragment"/>
     <fragment android:id="@+id/settingsFragment" android:name="com.example.fletesya.ui.configuracion.SettingsFragment"
               android:label="SettingsFragment"/>

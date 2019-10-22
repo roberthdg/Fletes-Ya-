@@ -33,6 +33,9 @@ class SimuladorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+        super.onCreate(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = "Subastas (gsonBuilder)"
         return inflater.inflate(R.layout.simulador_fragment, container, false)
     }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+                android:id="@+id/simuladorFragment"
+                android:icon="@drawable/ic_list"
+                android:title="Subastas"/>
+        <item
+                android:id="@+id/futureSimFragment"
+                android:icon="@drawable/ic_local_offer"
+                android:title="Ofertas"/>
+        <item
+                android:id="@+id/settingsFragment"
+                android:icon="@drawable/ic_settings"
+                android:title="Configuración"/>
+
+    </group>
+
+    <item android:title="Communicate">
+
+        <menu>
+            <item
+                    android:id="@+id/item2Fragment"
+                    android:icon="@drawable/ic_email"
+                    android:title="item2"/>
+            <item
+                    android:id="@+id/item3Fragment"
+                    android:icon="@drawable/ic_send"
+                    android:title="item3"/>
+
+        </menu>
+    </item>
+
+</menu>

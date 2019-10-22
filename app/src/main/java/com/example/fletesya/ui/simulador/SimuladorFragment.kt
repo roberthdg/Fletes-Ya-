@@ -2,10 +2,8 @@ package com.example.fletesya.ui.simulador
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 
 import com.example.fletesya.R
@@ -36,12 +34,18 @@ class SimuladorFragment : Fragment() {
 
 
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         (activity as AppCompatActivity).supportActionBar?.title = "Subastas (gsonBuilder)"
         return inflater.inflate(R.layout.simulador_fragment, container, false)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        setHasOptionsMenu(true)
         viewModel = ViewModelProviders.of(this).get(SimuladorViewModel::class.java)
 
         button.setOnClickListener { CoroutineScope(IO).launch {

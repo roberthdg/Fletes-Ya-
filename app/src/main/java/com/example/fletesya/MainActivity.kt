@@ -24,29 +24,49 @@ import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-       private lateinit var navController: NavController
+    private lateinit var navController: NavController
 
-       override fun onCreate(savedInstanceState: Bundle?) {
-           super.onCreate(savedInstanceState)
-           setContentView(R.layout.activity_main)
-           setSupportActionBar(findViewById(R.id.toolbar))
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
-           val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
 
-           val toggle = ActionBarDrawerToggle(
-               this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
-           )
-           drawerLayout.addDrawerListener(toggle)
-           toggle.syncState()
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
-           navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
-           bottom_nav.setupWithNavController(navController)
+        side_nav.setupWithNavController(navController)
 
-           NavigationUI.setupActionBarWithNavController(this, navController)
-       }
+        bottom_nav.setupWithNavController(navController)
+
+        NavigationUI.setupActionBarWithNavController(this, navController)
+    }
+
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.simuladorFragment -> {
+
+            //supportFragmentManager.beginTransaction().replace(R.id.)
+        }
+            R.id.settingsFragment -> {
+
+            }
+        }
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
 
     override fun onBackPressed() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -57,16 +77,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-       override fun onSupportNavigateUp(): Boolean {
-           return NavigationUI.navigateUp(navController, null)
-       }
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(navController, drawer_layout)
+    }
 
-      override fun onOptionsItemSelected(item: MenuItem): Boolean {
-           val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-           val navigated = NavigationUI.onNavDestinationSelected(item, navController)
-           return navigated || super.onOptionsItemSelected(item)
-       }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        val navigated = NavigationUI.onNavDestinationSelected(item, navController)
+        return navigated || super.onOptionsItemSelected(item)
+    }
 
 
 }
-

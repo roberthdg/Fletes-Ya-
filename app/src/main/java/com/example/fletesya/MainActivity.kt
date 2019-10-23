@@ -103,13 +103,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-/*    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        val navigated = NavigationUI.onNavDestinationSelected(item, navController)
-        return navigated || super.onOptionsItemSelected(item)
-    }*/
-
-
-
-
 }

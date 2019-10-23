@@ -16,6 +16,19 @@
                 android:id="@+id/settingsFragment"
                 android:icon="@drawable/ic_settings"
                 android:title="Configuración"/>
+<!--
+        <item
+                android:id="@+id/fragmento1"
+                android:icon="@drawable/ic_list"
+                android:title="Subastas"/>
+        <item
+                android:id="@+id/fragmento2"
+                android:icon="@drawable/ic_local_offer"
+                android:title="Ofertas"/>
+        <item
+                android:id="@+id/fragmento3"
+                android:icon="@drawable/ic_settings"
+                android:title="Configuración"/>-->
 
     </group>
 

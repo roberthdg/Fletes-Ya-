@@ -7,12 +7,26 @@
     <fragment android:id="@+id/simuladorFragment"
               android:name="com.example.fletesya.ui.simulador.SimuladorFragment"
               android:label="simulador_fragment" tools:layout="@layout/simulador_fragment"/>
+
     <fragment android:id="@+id/futureSimFragment"
               android:name="com.example.fletesya.ui.ofertas.ofertaFragment"
               android:label="future_sim_fragment" tools:layout="@layout/oferta_fragment"/>
+
     <fragment android:id="@+id/futureSimDetails"
               android:name="com.example.fletesya.ui.subasta.SubastaFragment"
               android:label="future_sim_details_fragment" tools:layout="@layout/future_sim_details_fragment"/>
+
     <fragment android:id="@+id/settingsFragment" android:name="com.example.fletesya.ui.configuracion.SettingsFragment"
               android:label="SettingsFragment"/>
+
+<!--    <fragment android:id="@+id/fragmento1"
+              android:name="com.example.fletesya.ui.example.fragment1"
+              android:label="simulador_fragment" tools:layout="@layout/fragment1"/>
+
+    <fragment android:id="@+id/fragmento2"
+              android:name="com.example.fletesya.ui.example.fragment2" tools:layout="@layout/fragment2"/>
+
+    <fragment android:id="@+id/fragmento3"
+              android:name="com.example.fletesya.ui.example.fragment3" tools:layout="@layout/fragment3"/>-->
+
 </navigation>

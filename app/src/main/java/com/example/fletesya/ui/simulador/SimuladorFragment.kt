@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import okhttp3.*
 import java.io.IOException
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class SimuladorFragment : Fragment() {
@@ -27,6 +28,11 @@ class SimuladorFragment : Fragment() {
 
     private lateinit var viewModel: SimuladorViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +41,7 @@ class SimuladorFragment : Fragment() {
 
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
         (activity as AppCompatActivity).supportActionBar?.title = "Subastas (gsonBuilder)"
         return inflater.inflate(R.layout.simulador_fragment, container, false)
     }

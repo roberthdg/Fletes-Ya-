@@ -18,6 +18,12 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.example.fletesya.R
+import com.example.fletesya.ui.configuracion.SettingsFragment
+import com.example.fletesya.ui.example.fragment1
+import com.example.fletesya.ui.example.fragment2
+import com.example.fletesya.ui.example.fragment3
+import com.example.fletesya.ui.ofertas.ofertaFragment
+import com.example.fletesya.ui.simulador.SimuladorFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.*
@@ -29,11 +35,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
@@ -41,13 +50,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        val navView: NavigationView = findViewById(R.id.side_nav)
+
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
         side_nav.setupWithNavController(navController)
 
         bottom_nav.setupWithNavController(navController)
 
-        NavigationUI.setupActionBarWithNavController(this, navController)
+        navView.setNavigationItemSelectedListener(this)
+
+        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SimuladorFragment()).commit()
     }
 
 
@@ -55,13 +68,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         when (item.itemId) {
             R.id.simuladorFragment -> {
+                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SimuladorFragment()).commit()
+            }
 
-            //supportFragmentManager.beginTransaction().replace(R.id.)
-        }
+            R.id.futureSimFragment -> {
+                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, ofertaFragment()).commit()
+            }
+
             R.id.settingsFragment -> {
-
+                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SettingsFragment()).commit()
             }
         }
+
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -81,11 +99,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return NavigationUI.navigateUp(navController, drawer_layout)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return true
+    }
+
+/*    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         val navigated = NavigationUI.onNavDestinationSelected(item, navController)
         return navigated || super.onOptionsItemSelected(item)
-    }
+    }*/
+
+
 
 
 }

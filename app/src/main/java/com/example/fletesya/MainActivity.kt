@@ -11,6 +11,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
@@ -19,18 +20,17 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.example.fletesya.R
 import com.example.fletesya.ui.configuracion.SettingsFragment
-import com.example.fletesya.ui.example.fragment1
-import com.example.fletesya.ui.example.fragment2
-import com.example.fletesya.ui.example.fragment3
+
 import com.example.fletesya.ui.ofertas.ofertaFragment
 import com.example.fletesya.ui.simulador.SimuladorFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var navController: NavController
 
@@ -47,10 +47,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
+
         drawerLayout.addDrawerListener(toggle)
+
         toggle.syncState()
 
         val navView: NavigationView = findViewById(R.id.side_nav)
+
+        val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_nav)
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
@@ -60,23 +64,48 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         navView.setNavigationItemSelectedListener(this)
 
-        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SimuladorFragment()).commit()
+        bottomNavView.setOnNavigationItemSelectedListener(this)
+
+        supportFragmentManager.beginTransaction().add(R.id.nav_host_fragment, SimuladorFragment(), "simFragment").commit()
     }
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
+
             R.id.simuladorFragment -> {
-                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SimuladorFragment()).commit()
+                val simFrag : Fragment? = supportFragmentManager.findFragmentByTag("simFragment")
+                val offFrag : Fragment? = supportFragmentManager.findFragmentByTag("offFragment")
+
+                if(simFrag!=null){
+                    if(offFrag==null) {
+                        supportFragmentManager.beginTransaction().show(simFrag).commit()
+                    } else {
+                        supportFragmentManager.beginTransaction().hide(offFrag).commit()
+                        supportFragmentManager.beginTransaction().show(simFrag).commit()
+                    }
+                }
             }
 
-            R.id.futureSimFragment -> {
-                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, ofertaFragment()).commit()
+                R.id.futureSimFragment -> {
+                val simFrag : Fragment? = supportFragmentManager.findFragmentByTag("simFragment")
+                val offFrag : Fragment? = supportFragmentManager.findFragmentByTag("offFragment")
+
+                if(simFrag!=null){
+                    if(offFrag==null) {
+                        supportFragmentManager.beginTransaction().hide(simFrag).commit()
+                        supportFragmentManager.beginTransaction().add(R.id.nav_host_fragment, ofertaFragment(), "offFragment").commit()
+                    } else {
+                        supportFragmentManager.beginTransaction().hide(simFrag).commit()
+                        supportFragmentManager.beginTransaction().show(offFrag).commit()
+                    }
+                }
+
             }
 
             R.id.settingsFragment -> {
-                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SettingsFragment()).commit()
+           //     supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SettingsFragment()).commit()
             }
         }
 

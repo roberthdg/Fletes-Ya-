@@ -19,9 +19,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class loginActivity : AppCompatActivity() {
 
-    private val retrofit = Retrofit.Builder().baseUrl("https://fletesya.cl/api/")
+    val retrofit = Retrofit.Builder().baseUrl("https://fletesya.cl/api/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
+
     private val postsApi = retrofit.create(RequestAPI::class.java)
     private val loginRes = postsApi.loginCall("asdf", "huehuehue")
 

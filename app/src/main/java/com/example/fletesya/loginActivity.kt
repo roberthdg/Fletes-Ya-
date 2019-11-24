@@ -1,9 +1,13 @@
 
 package com.example.fletesya
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.fletesya.data.Preferences.MyPreferences
 import com.example.fletesya.data.Request.RequestAPI
+import com.example.fletesya.data.Request.RetrofitClient
 import com.example.fletesya.data.Response.loginResponse
 import com.example.fletesya.data.Response.subastaResponse
 import kotlinx.android.synthetic.main.activity_login.*
@@ -11,6 +15,7 @@ import kotlinx.android.synthetic.main.oferta_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.internal.lockAndWaitNanos
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,34 +24,47 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class loginActivity : AppCompatActivity() {
 
-    val retrofit = Retrofit.Builder().baseUrl("https://fletesya.cl/api/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-
-    private val postsApi = retrofit.create(RequestAPI::class.java)
-    private val loginRes = postsApi.loginCall("asdf", "huehuehue")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
+
+
         loginButton.setOnClickListener{
-            login()
+            login(this)
+        }
+
+        getSubastas.setOnClickListener {
+
+
         }
     }
 
-    fun login() {
+    fun login(context: Context) {
 
-        loginRes.enqueue(object : Callback<loginResponse> {
+        RetrofitClient.instance.loginCall("asdf", "huehuehue").enqueue(object : Callback<loginResponse> {
 
+            val preferences = MyPreferences(context)
             override fun onFailure(call: Call<loginResponse>, t: Throwable) {
                 println("wait a minute boi: "+ t.toString())
+
             }
 
             override fun onResponse(call: Call<loginResponse>, response: Response<loginResponse>){
-                val sResponse = response.body()
-                println("subasta response: "+ sResponse!!.user.fecha_registro.toString())
+
+                if(response.code()==200) {
+                    val sResponse = response.body()
+                    println("subasta response: "+ sResponse!!.user.fecha_registro.toString())
+                    preferences.saveToken("ACCESS_TOKEN", sResponse!!.accessToken)
+                    preferences.saveToken("REFRESH_TOKEN", sResponse!!.refreshToken)
+                    val intent = Intent(context, MainActivity::class.java)
+                    startActivity(intent)
+                }
+                else {
+                    println("error: "+ response.code())
+                }
+
             }
 
         })

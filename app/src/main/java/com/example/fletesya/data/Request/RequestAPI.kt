@@ -20,7 +20,7 @@ interface RequestAPI {
     fun ratesListado(): Call<ratesResponse>
 
     @GET("listado")
-    fun subastaLisatdo(): Call<subastaResponse>
+    fun subastaCall(): Call<subastaResponse>
 
     @POST("registrar")
     @FormUrlEncoded

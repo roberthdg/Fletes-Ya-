@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 
 import com.example.fletesya.R
 import com.example.fletesya.data.Request.RequestAPI
+import com.example.fletesya.data.Request.RetrofitClient
 import com.example.fletesya.data.Response.ratesResponse
 import com.example.fletesya.data.Response.subastaResponse
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,13 +32,6 @@ class ofertaFragment : Fragment() {
     companion object {
         fun newInstance() = ofertaFragment()
     }
-
-    private val retrofit = Retrofit.Builder().baseUrl("https://fletesya.cl/api/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val postsApi = retrofit.create(RequestAPI::class.java)
-    private val subastaResponse = postsApi.subastaLisatdo()
 
     private lateinit var viewModel: ofertaViewModel
 
@@ -59,7 +53,7 @@ class ofertaFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ofertaViewModel::class.java)
         // TODO: Use the ViewModel
 
-        subastaResponse.enqueue(object : Callback<subastaResponse> {
+        RetrofitClient.instance.subastaCall().enqueue(object : Callback<subastaResponse> {
             override fun onFailure(call: Call<subastaResponse>, t: Throwable) {
                 println("wait a minute boi: "+ t.toString())
             }

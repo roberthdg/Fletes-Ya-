@@ -1,8 +1,10 @@
 package com.example.fletesya
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.SparseArray
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,6 +21,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.example.fletesya.R
+import com.example.fletesya.data.Preferences.MyPreferences
 import com.example.fletesya.ui.configuracion.SettingsFragment
 
 import com.example.fletesya.ui.ofertas.ofertaFragment
@@ -35,6 +38,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val preferences = MyPreferences(this)
 
         super.onCreate(savedInstanceState)
 
@@ -67,6 +72,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bottomNavView.setOnNavigationItemSelectedListener(this)
 
         supportFragmentManager.beginTransaction().add(R.id.nav_host_fragment, SimuladorFragment(), "simFragment").commit()
+
+        println("Holis esta es mi access token: "+ preferences.getToken("ACCESS_TOKEN"))
+
+        println("Holis esta es mi refresh token: "+ preferences.getToken("REFRESH_TOKEN"))
     }
 
 

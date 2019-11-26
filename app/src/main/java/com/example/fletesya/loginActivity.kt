@@ -35,17 +35,10 @@ class loginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-
-
-
         loginButton.setOnClickListener{
             login(this)
         }
 
-        getSubastas.setOnClickListener {
-
-
-        }
     }
 
     fun login(context: Context) {

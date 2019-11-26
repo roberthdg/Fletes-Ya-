@@ -1,6 +1,7 @@
 package com.example.fletesya
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.SparseArray
@@ -40,6 +41,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val preferences = MyPreferences(this)
+
+        if(preferences.getToken("REFRESH_TOKEN")==null) {
+            val intent = Intent(this, loginActivity::class.java)
+            startActivity(intent)
+        }
 
         super.onCreate(savedInstanceState)
 

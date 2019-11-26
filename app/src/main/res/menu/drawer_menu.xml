@@ -24,12 +24,12 @@
         <menu>
             <item
                     android:id="@+id/item2Fragment"
-                    android:icon="@drawable/ic_email"
-                    android:title="item2"/>
+                    android:icon="@drawable/ic_notificacion"
+                    android:title="Notificaciones"/>
             <item
                     android:id="@+id/item3Fragment"
-                    android:icon="@drawable/ic_send"
-                    android:title="item3"/>
+                    android:icon="@drawable/ic_sesion"
+                    android:title="Cerrar sesión"/>
 
         </menu>
     </item>

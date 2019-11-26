@@ -3,7 +3,11 @@ package com.example.fletesya.data.Preferences
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import dagger.Component
+import dagger.Module
+import dagger.Provides
 
+@Module
 class MyPreferences(
     context: Context
 ){
@@ -13,6 +17,7 @@ class MyPreferences(
     private val preference : SharedPreferences
         get() = PreferenceManager.getDefaultSharedPreferences(appContext)
 
+    @Provides
     fun saveToken(type: String, token: String) {
         preference.edit().putString(
             type,
@@ -20,10 +25,9 @@ class MyPreferences(
         ).apply()
     }
 
+    @Provides
     fun getToken(type: String) : String? {
         return preference.getString(type, null)
     }
-
-
 
 }

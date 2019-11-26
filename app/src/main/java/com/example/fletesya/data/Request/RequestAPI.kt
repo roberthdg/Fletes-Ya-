@@ -1,10 +1,7 @@
 package com.example.fletesya.data.Request
 
 
-import com.example.fletesya.data.Response.ratesResponse
-import com.example.fletesya.data.Response.subastaResponse
-import com.example.fletesya.data.Response.loginResponse
-import com.example.fletesya.data.Response.regResponse
+import com.example.fletesya.data.Response.*
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -36,13 +33,11 @@ interface RequestAPI {
         @Field("password") password: String
     ): Call<loginResponse>
 
-    @POST("auth/token")
+    @POST("token")
     @FormUrlEncoded
-    fun crearUsuario(
-        @Field("correo") correo: String ,
-        @Field("password") password: String,
-        @Field("tipo") tipo: String
-    ): Call<regResponse>
+    fun refreshCall(
+        @Field("token") token: String
+    ): Call<refreshResponse>
 
 
 

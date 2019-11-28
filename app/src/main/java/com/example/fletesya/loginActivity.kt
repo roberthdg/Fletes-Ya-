@@ -7,12 +7,14 @@ import android.content.SharedPreferences
 import android.media.session.MediaSession
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.fletesya.data.Preferences.MyPreferences
 import com.example.fletesya.data.Preferences.TokenManager
 import com.example.fletesya.data.Request.RequestAPI
 import com.example.fletesya.data.Request.RetrofitClient
 import com.example.fletesya.data.Response.loginResponse
 import com.example.fletesya.data.Response.subastaResponse
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.oferta_fragment.*
 import kotlinx.coroutines.CoroutineScope
@@ -35,6 +37,7 @@ class loginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
         loginButton.setOnClickListener{
             login(this)
         }
@@ -43,37 +46,42 @@ class loginActivity : AppCompatActivity() {
 
     fun login(context: Context) {
 
-        RetrofitClient.instance.loginCall("asdf", "huehuehue").enqueue(object : Callback<loginResponse> {
+        val correo = emailText.text.toString()
 
-            val preferences = MyPreferences(context)
+        val password = passText.text.toString()
 
-            val tokenManager = TokenManager
+        println(password+correo)
+
+        RetrofitClient.instance.loginCall(correo, password).enqueue(object : Callback<loginResponse> {
+
+            val preferences = MyPreferences(context) // val tokenManager = TokenManager
 
             override fun onFailure(call: Call<loginResponse>, t: Throwable) {
                 println("wait a minute boi: "+ t.toString())
-
             }
 
             override fun onResponse(call: Call<loginResponse>, response: Response<loginResponse>){
 
                 if(response.code()==200) {
                     val sResponse = response.body()
-                    println("subasta response: "+ sResponse!!.user.fecha_registro.toString())
-                  //  tokenManager.saveToken()
-                    preferences.saveToken("ACCESS_TOKEN", sResponse!!.accessToken)
-                    preferences.saveToken("REFRESH_TOKEN", sResponse!!.refreshToken)
+
+                    val user = Gson().toJson(sResponse!!.user)
+
+                    preferences.saveUserData("user", user)  //  tokenManager.saveToken()
+                    preferences.saveToken("ACCESS_TOKEN", sResponse.accessToken)
+                    preferences.saveToken("REFRESH_TOKEN", sResponse.refreshToken)
+
                     val intent = Intent(context, MainActivity::class.java)
+
                     startActivity(intent)
                 }
                 else {
                     println("error: "+ response.code())
+                    Toast.makeText(context,"Datos incorrectos", Toast.LENGTH_LONG).show()
                 }
-
             }
-
         })
     }
-
 }
 
 

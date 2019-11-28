@@ -26,8 +26,23 @@ class MyPreferences(
     }
 
     @Provides
-    fun getToken(type: String) : String? {
+    fun saveUserData(type: String, data: String) {
+        preference.edit().putString(
+            type,
+            data
+        ).apply()
+    }
+
+    @Provides
+    fun getData(type: String) : String? {
         return preference.getString(type, null)
+    }
+
+    @Provides
+    fun clear() {
+        val editor = preference.edit()
+        editor.clear()
+        editor.commit()
     }
 
 }

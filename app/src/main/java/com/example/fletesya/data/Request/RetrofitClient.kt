@@ -53,7 +53,7 @@ class ServiceInterceptor : Interceptor{
         val original = chain.request()
 
         val requestBuilder = original.newBuilder()
-            .addHeader("Authorization", "Bearer "+preferences.getToken("ACCESS_TOKEN"))
+            .addHeader("Authorization", "Bearer "+preferences.getData("ACCESS_TOKEN"))
             .method(original.method, original.body)
 
         return chain.proceed(requestBuilder.build())
@@ -72,7 +72,7 @@ class TokenAuthenticator : Authenticator {
 
         try{
 
-            val responseBody = RetrofitClient.instance.refreshCall(preferences.getToken("REFRESH_TOKEN")!!).execute().body()
+            val responseBody = RetrofitClient.instance.refreshCall(preferences.getData("REFRESH_TOKEN")!!).execute().body()
 
             val token=responseBody!!.accessToken
 

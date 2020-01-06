@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.example.fletesya.R
+import com.example.fletesya.data.Model.Oferta
 import com.example.fletesya.data.Request.RetrofitClient
 import com.example.fletesya.data.Response.ofertaResponse
 import com.example.fletesya.data.Response.subastaResponse
+import com.example.fletesya.ui.TopSpacingItemDecoration
+import com.example.fletesya.ui.subasta.SubastaRecyclerAdapter
 import kotlinx.android.synthetic.main.oferta_fragment.*
 import kotlinx.coroutines.*
 import retrofit2.Call
@@ -22,7 +27,10 @@ class ofertaFragment : Fragment() {
         fun newInstance() = ofertaFragment()
     }
 
-    private lateinit var viewModel: ofertaViewModel
+
+    lateinit var recyclerView: RecyclerView
+
+    private lateinit var ofertaAdapter: OfertaRecyclerAdapter
 
 
     override fun onCreateView(
@@ -33,33 +41,33 @@ class ofertaFragment : Fragment() {
         setHasOptionsMenu(true)
 
         (activity as AppCompatActivity).supportActionBar?.title = "Ofertas"
-        return inflater.inflate(R.layout.oferta_fragment, container, false)
+        val rootView = inflater.inflate(R.layout.subasta_fragment, container, false)
+
+        recyclerView = rootView.findViewById(R.id.recyclerSubasta)
+
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(activity)
+            val topSpacingDecorator = TopSpacingItemDecoration(30)
+            addItemDecoration(topSpacingDecorator)
+            ofertaAdapter = OfertaRecyclerAdapter()
+            adapter = ofertaAdapter
+        }
+
+        RetrofitClient.instance.ofertaCall().enqueue(object : Callback<ofertaResponse> {
+            override fun onFailure(call: Call<ofertaResponse>, t: Throwable) {
+                println(t.toString())
+            }
+            override fun onResponse(call: Call<ofertaResponse>, response: Response<ofertaResponse>){
+                val sResponse = response.body()
+                ofertaAdapter.setOfertas(sResponse!!.ofertas)
+            }
+        })
+        return rootView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel = ViewModelProviders.of(this).get(ofertaViewModel::class.java)
-        // TODO: Use the ViewModel
-
-        RetrofitClient.instance.ofertaCall().enqueue(object : Callback<ofertaResponse> {
-            override fun onFailure(call: Call<ofertaResponse>, t: Throwable) {
-                println("wait a minute boi: "+ t.toString())
-            }
-            override fun onResponse(call: Call<ofertaResponse>, response: Response<ofertaResponse>){
-                val sResponse = response.body()
-                var result1 = "\n"
-                var i = 0
-
-                sResponse!!.ofertas.forEach({
-                    result1 = result1+"-"+sResponse.ofertas[i].titulo+" "+sResponse.ofertas[i].foto+"\n\n"
-                    i=i+1 })
-
-                CoroutineScope(Dispatchers.Main).launch {
-                    tituloOfertas.text = result1
-                }
-            }
-        })
     }
 
 }

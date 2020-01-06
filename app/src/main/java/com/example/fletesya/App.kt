@@ -20,12 +20,4 @@ class App : Application() {
     }
 
 
-
-   /* private lateinit var LocalStorage: LocalStorage
-
-    override fun onCreate() {
-        super.onCreate()
-        LocalStorage
-
-    }*/
 }

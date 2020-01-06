@@ -7,17 +7,12 @@
         android:background="@android:color/holo_blue_bright"
         tools:context=".ui.ofertas.ofertaFragment" android:orientation="vertical">
 
-    <TextView
-            android:id="@+id/textView5"
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerOferta"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Mis ofertas" />
+            android:layout_height="match_parent"
+            />
 
-    <TextView
-            android:id="@+id/tituloOfertas"
-            android:layout_width="427dp"
-            android:layout_height="253dp"
-            android:text="Ofertas" />
 
 
 </LinearLayout>

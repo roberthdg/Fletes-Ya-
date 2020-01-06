@@ -30,7 +30,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var navController: NavController
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
 
         val preferences = MyPreferences(this)
 

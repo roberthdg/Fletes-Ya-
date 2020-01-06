@@ -1,45 +1,30 @@
-package com.example.fletesya
+package com.example.fletesya.activities
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.service.autofill.TextValueSanitizer
-import android.util.SparseArray
-import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import androidx.annotation.IdRes
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.example.fletesya.R
 import com.example.fletesya.data.Model.User
 import com.example.fletesya.data.Preferences.MyPreferences
-import com.example.fletesya.ui.configuracion.SettingsFragment
 
 import com.example.fletesya.ui.ofertas.ofertaFragment
-import com.example.fletesya.ui.simulador.SimuladorFragment
+import com.example.fletesya.ui.subasta.SubastaFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.nav_header.*
-import kotlinx.android.synthetic.main.nav_header.view.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -48,11 +33,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val preferences = MyPreferences(this)
-
-        if(preferences.getData("REFRESH_TOKEN")==null) {
-            val intent = Intent(this, loginActivity::class.java)
-            startActivity(intent)
-        }
 
         super.onCreate(savedInstanceState)
 
@@ -93,8 +73,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         bottomNavView.setOnNavigationItemSelectedListener(this)
 
-        supportFragmentManager.beginTransaction().add(R.id.nav_host_fragment, SimuladorFragment(), "simFragment").commit()
-
+        supportFragmentManager.beginTransaction().add(R.id.nav_host_fragment, SubastaFragment(), "subFragment").commit()
 
     }
 
@@ -103,8 +82,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         when (item.itemId) {
 
-            R.id.simuladorFragment -> {
-                val simFrag : Fragment? = supportFragmentManager.findFragmentByTag("simFragment")
+            R.id.subastaFragment -> {
+                val simFrag : Fragment? = supportFragmentManager.findFragmentByTag("subFragment")
                 val offFrag : Fragment? = supportFragmentManager.findFragmentByTag("offFragment")
 
                 if(simFrag!=null){
@@ -118,7 +97,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
                 R.id.futureSimFragment -> {
-                val simFrag : Fragment? = supportFragmentManager.findFragmentByTag("simFragment")
+                val simFrag : Fragment? = supportFragmentManager.findFragmentByTag("subFragment")
                 val offFrag : Fragment? = supportFragmentManager.findFragmentByTag("offFragment")
 
                 if(simFrag!=null){
@@ -133,7 +112,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
 
-            R.id.settingsFragment -> {
+            R.id.simuladorFragment -> {
            //     supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SettingsFragment()).commit()
             }
 
@@ -143,7 +122,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(this, loginActivity::class.java)
                 startActivity(intent)
             }
-
         }
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)

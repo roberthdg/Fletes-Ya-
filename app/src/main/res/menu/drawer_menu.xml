@@ -5,7 +5,7 @@
     <group android:checkableBehavior="single">
 
         <item
-                android:id="@+id/simuladorFragment"
+                android:id="@+id/subastaFragment"
                 android:icon="@drawable/ic_list"
                 android:title="Subastas"/>
         <item
@@ -13,15 +13,20 @@
                 android:icon="@drawable/ic_local_offer"
                 android:title="Ofertas"/>
         <item
-                android:id="@+id/settingsFragment"
-                android:icon="@drawable/ic_settings"
-                android:title="Configuración"/>
+                android:id="@+id/simuladorFragment"
+                android:icon="@drawable/ic_map"
+                android:title="Mapa"/>
 
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Mi perfil">
 
         <menu>
+            <item
+                    android:id="@+id/ite"
+                    android:icon="@drawable/ic_settings"
+                    android:title="Configuración"/>
+
             <item
                     android:id="@+id/item2Fragment"
                     android:icon="@drawable/ic_notificacion"
@@ -30,8 +35,8 @@
                     android:id="@+id/item3Fragment"
                     android:icon="@drawable/ic_sesion"
                     android:title="Cerrar sesión"/>
-
         </menu>
+
     </item>
 
 </menu>

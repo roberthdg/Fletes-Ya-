@@ -4,14 +4,20 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_blue_dark"
+        android:background="@android:color/holo_blue_bright"
         tools:context=".ui.ofertas.ofertaFragment" android:orientation="vertical">
 
     <TextView
-            android:id="@+id/tituloOfertas"
+            android:id="@+id/textView5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Ofertas"/>
+            android:layout_height="wrap_content"
+            android:text="Mis ofertas" />
+
+    <TextView
+            android:id="@+id/tituloOfertas"
+            android:layout_width="427dp"
+            android:layout_height="253dp"
+            android:text="Ofertas" />
 
 
 </LinearLayout>

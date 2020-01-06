@@ -1,31 +1,20 @@
 
-package com.example.fletesya
+package com.example.fletesya.activities
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.media.session.MediaSession
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.fletesya.R
 import com.example.fletesya.data.Preferences.MyPreferences
-import com.example.fletesya.data.Preferences.TokenManager
-import com.example.fletesya.data.Request.RequestAPI
 import com.example.fletesya.data.Request.RetrofitClient
 import com.example.fletesya.data.Response.loginResponse
-import com.example.fletesya.data.Response.subastaResponse
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.oferta_fragment.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import okhttp3.internal.lockAndWaitNanos
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 //private val tokenManager = TokenManager.getInstance(prefs = SharedPreferences)
@@ -39,9 +28,12 @@ class loginActivity : AppCompatActivity() {
 
 
         loginButton.setOnClickListener{
-            login(this)
+            if(emailText.text.isEmpty() || passText.text.isEmpty()) {
+                Toast.makeText(this,"Debe llenar los campos", Toast.LENGTH_LONG).show()
+            } else {
+                login(this)
+            }
         }
-
     }
 
     fun login(context: Context) {

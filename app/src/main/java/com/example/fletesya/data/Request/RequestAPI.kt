@@ -13,19 +13,6 @@ import retrofit2.http.POST
 
 interface RequestAPI {
 
-    @GET("latest")
-    fun ratesListado(): Call<ratesResponse>
-
-    @GET("listado")
-    fun subastaCall(): Call<subastaResponse>
-
-    @POST("registrar")
-    @FormUrlEncoded
-    fun refreshCall(
-        @Field("correo") correo: String ,
-        @Field("refreshToken") refreshToken: String
-    ): Call<loginResponse>
-
     @POST("login")
     @FormUrlEncoded
     fun loginCall(
@@ -38,6 +25,13 @@ interface RequestAPI {
     fun refreshCall(
         @Field("token") token: String
     ): Call<refreshResponse>
+
+    @GET("subastas/listado")
+    fun subastaCall(): Call<subastaResponse>
+
+    @GET("ofertas/listado")
+    fun ofertaCall(): Call<ofertaResponse>
+
 
 
 

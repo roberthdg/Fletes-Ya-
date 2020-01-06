@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 
 import com.example.fletesya.R
-import com.example.fletesya.data.Model.logoListado
 import com.example.fletesya.data.Model.subastaListado
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.simulador_fragment.*
@@ -42,7 +41,7 @@ class SimuladorFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        (activity as AppCompatActivity).supportActionBar?.title = "Subastas (gsonBuilder)"
+        (activity as AppCompatActivity).supportActionBar?.title = "Simulador"
         return inflater.inflate(R.layout.simulador_fragment, container, false)
     }
 
@@ -60,13 +59,6 @@ class SimuladorFragment : Fragment() {
         }
         }
         /*  TODO: Use the ViewModel
-        val apiService = fletesyaAPI()
-
-        GlobalScope.launch(Dispatchers.Main) {
-            val SimuladorFragment = apiService.listado().await()
-            texxxt.text = SimuladorFragment.toString()
-        }
-
         */
     }
 
@@ -103,29 +95,20 @@ class SimuladorFragment : Fragment() {
 
                 val gson = GsonBuilder().create()
 
-                val subastas = gson.fromJson(body, subastaListado::class.java)
-
-                val logos = gson.fromJson(body, logoListado::class.java)
+                val data = gson.fromJson(body, subastaListado::class.java)
 
                 var result1 = "\n"
                 var i = 0
 
-                subastas.data.forEach( {
-                    result1 = result1+"Subasta #"+subastas.data[i].id_subasta.toString()+" desde: "+ subastas.data[i].comuna_origen +" hasta "+ subastas.data[i].comuna_destino+"\n\n"
-                    // print("debug: ${result1}")
+                data.subastas.forEach( {
+                    result1 = result1+"Subasta #"+data.subastas[i].titulo+" "+ data.subastas[i].foto+"\n\n"
                     i=i+1
                 })
-
-
-                val result2 = logos.toString()
-                print("debug: ${result2}")
 
                 CoroutineScope(IO).launch {
                 setTextOnMain(result1)
                // setTextOnMain(result2)
                 }
-
-
 
             }
             override fun onFailure(call: Call, e: IOException) {

@@ -7,11 +7,11 @@
         <item
                 android:id="@+id/subastaFragment"
                 android:icon="@drawable/ic_list"
-                android:title="Subastas"/>
+                android:title="Mis subastas"/>
         <item
-                android:id="@+id/futureSimFragment"
+                android:id="@+id/ofertaFragment"
                 android:icon="@drawable/ic_local_offer"
-                android:title="Ofertas"/>
+                android:title="Mis ofertas"/>
         <item
                 android:id="@+id/simuladorFragment"
                 android:icon="@drawable/ic_map"
@@ -23,7 +23,7 @@
 
         <menu>
             <item
-                    android:id="@+id/ite"
+                    android:id="@+id/item"
                     android:icon="@drawable/ic_settings"
                     android:title="Configuración"/>
 

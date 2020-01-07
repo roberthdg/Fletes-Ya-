@@ -21,6 +21,7 @@ import com.example.fletesya.data.Model.User
 import com.example.fletesya.data.Preferences.MyPreferences
 
 import com.example.fletesya.ui.ofertas.ofertaFragment
+import com.example.fletesya.ui.simulador.SimuladorFragment
 import com.example.fletesya.ui.subasta.SubastaFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
@@ -30,11 +31,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var navController: NavController
 
-
+    var currentTag = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
 
         val preferences = MyPreferences(this)
 
@@ -43,7 +42,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-
 
         setSupportActionBar(findViewById(R.id.toolbar))
 
@@ -77,49 +75,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         bottomNavView.setOnNavigationItemSelectedListener(this)
 
+        this.setTitle("Subastas")
+
+        currentTag = "subFragment"
+
         supportFragmentManager.beginTransaction().add(R.id.nav_host_fragment, SubastaFragment(), "subFragment").commit()
 
     }
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
 
             R.id.subastaFragment -> {
-                val simFrag : Fragment? = supportFragmentManager.findFragmentByTag("subFragment")
-                val offFrag : Fragment? = supportFragmentManager.findFragmentByTag("offFragment")
-
-                if(simFrag!=null){
-                    if(offFrag==null) {
-                        supportFragmentManager.beginTransaction().show(simFrag).commit()
-                    } else {
-                        supportFragmentManager.beginTransaction().hide(offFrag).commit()
-                        supportFragmentManager.beginTransaction().show(simFrag).commit()
-                    }
-                }
+                this.setTitle("Subastas")
+                selectFragment("subFragment")
             }
 
-                R.id.futureSimFragment -> {
-                val simFrag : Fragment? = supportFragmentManager.findFragmentByTag("subFragment")
-                val offFrag : Fragment? = supportFragmentManager.findFragmentByTag("offFragment")
-
-                if(simFrag!=null){
-                    if(offFrag==null) {
-                        supportFragmentManager.beginTransaction().hide(simFrag).commit()
-                        supportFragmentManager.beginTransaction().add(R.id.nav_host_fragment, ofertaFragment(), "offFragment").commit()
-                    } else {
-                        supportFragmentManager.beginTransaction().hide(simFrag).commit()
-                        supportFragmentManager.beginTransaction().show(offFrag).commit()
-                    }
-                }
-
+            R.id.ofertaFragment -> {
+                this.setTitle("Ofertas")
+                selectFragment("offFragment")
             }
 
             R.id.simuladorFragment -> {
-           //     supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SettingsFragment()).commit()
+                this.setTitle("Mapa")
+                selectFragment("simFragment")
             }
 
+            //cerrar sesión
             R.id.item3Fragment -> {
                 val preferences = MyPreferences(this)
                 preferences.clear()
@@ -149,6 +132,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         return true
+    }
+
+    fun selectFragment(tag: String) {
+
+        if(tag!=currentTag) {
+
+            val currentFrag : Fragment? = supportFragmentManager.findFragmentByTag(currentTag)
+
+            val newFrag : Fragment? = supportFragmentManager.findFragmentByTag(tag)
+
+            supportFragmentManager.beginTransaction().hide(currentFrag!!).commit()
+
+            currentTag=tag
+
+            if(newFrag!=null) supportFragmentManager.beginTransaction().show(newFrag!!).commit()
+
+            else {
+                if(tag=="offFragment") supportFragmentManager.beginTransaction().add(R.id.nav_host_fragment, ofertaFragment(), "offFragment").commit()
+                else supportFragmentManager.beginTransaction().add(R.id.nav_host_fragment, SimuladorFragment(), "simFragment").commit()
+            }
+        }
     }
 
 }

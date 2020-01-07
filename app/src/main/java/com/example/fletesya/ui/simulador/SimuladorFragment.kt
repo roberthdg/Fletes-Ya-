@@ -15,7 +15,6 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import okhttp3.*
 import java.io.IOException
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -36,17 +35,10 @@ class SimuladorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        (activity as AppCompatActivity).supportActionBar?.title = "Simulador"
-        return inflater.inflate(R.layout.simulador_fragment, container, false)
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
+        return inflater.inflate(R.layout.simulador_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -58,8 +50,6 @@ class SimuladorFragment : Fragment() {
             fetchJson()
         }
         }
-        /*  TODO: Use the ViewModel
-        */
     }
 
    private fun setNewText(input: String) {
@@ -72,8 +62,6 @@ class SimuladorFragment : Fragment() {
         withContext(Main){
             setNewText(input)
         }
-
-
     }
 
 
@@ -91,29 +79,18 @@ class SimuladorFragment : Fragment() {
         client.newCall(request).enqueue(object: Callback {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string()
-                println(body)
 
                 val gson = GsonBuilder().create()
 
                 val data = gson.fromJson(body, subastaListado::class.java)
 
-                var result1 = "\n"
-                var i = 0
-
-                data.subastas.forEach( {
-                    result1 = result1+"Subasta #"+data.subastas[i].titulo+" "+ data.subastas[i].foto+"\n\n"
-                    i=i+1
-                })
-
                 CoroutineScope(IO).launch {
-                setTextOnMain(result1)
-               // setTextOnMain(result2)
+                setTextOnMain(data.toString())
                 }
 
             }
             override fun onFailure(call: Call, e: IOException) {
                 println(e.toString())
-                println("BOIOIII")
             }
         })
     }

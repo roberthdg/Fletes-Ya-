@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fletesya.R
+import com.example.fletesya.activities.MainActivity
 import com.example.fletesya.data.Request.RetrofitClient
 import com.example.fletesya.data.Response.subastaResponse
 import com.example.fletesya.ui.TopSpacingItemDecoration
@@ -35,8 +36,6 @@ class SubastaFragment : Fragment() {
 
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        (activity as AppCompatActivity).supportActionBar?.title = "Subastas"
         val rootView = inflater.inflate(R.layout.subasta_fragment, container, false)
 
         recyclerView = rootView.findViewById(R.id.recyclerSubasta)

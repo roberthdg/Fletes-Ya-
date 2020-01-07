@@ -2,21 +2,18 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/mobile_navigation"
-            app:startDestination="@id/simuladorFragment">
+            app:startDestination="@id/subastaFragment">
 
     <fragment android:id="@+id/subastaFragment"
             android:name="com.example.fletesya.ui.subasta.SubastaFragment"
-            android:label="future_sim_details_fragment" tools:layout="@layout/future_sim_details_fragment"/>
+            android:label="subasta_fragment" tools:layout="@layout/subasta_fragment"/>
 
     <fragment android:id="@+id/ofertaFragment"
               android:name="com.example.fletesya.ui.ofertas.ofertaFragment"
-              android:label="future_sim_fragment" tools:layout="@layout/oferta_fragment"/>
+              android:label="oferta_fragment" tools:layout="@layout/oferta_fragment"/>
 
     <fragment android:id="@+id/simuladorFragment"
             android:name="com.example.fletesya.ui.simulador.SimuladorFragment"
             android:label="simulador_fragment" tools:layout="@layout/simulador_fragment"/>
-
-    <fragment android:id="@+id/settingsFragment" android:name="com.example.fletesya.ui.configuracion.SettingsFragment"
-              android:label="SettingsFragment"/>
 
 </navigation>

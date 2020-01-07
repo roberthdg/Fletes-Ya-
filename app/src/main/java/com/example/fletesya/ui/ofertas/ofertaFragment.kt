@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.fletesya.R
+import com.example.fletesya.activities.MainActivity
 import com.example.fletesya.data.Model.Oferta
 import com.example.fletesya.data.Request.RetrofitClient
 import com.example.fletesya.data.Response.ofertaResponse
@@ -27,7 +28,6 @@ class ofertaFragment : Fragment() {
         fun newInstance() = ofertaFragment()
     }
 
-
     lateinit var recyclerView: RecyclerView
 
     private lateinit var ofertaAdapter: OfertaRecyclerAdapter
@@ -40,7 +40,6 @@ class ofertaFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        (activity as AppCompatActivity).supportActionBar?.title = "Ofertas"
         val rootView = inflater.inflate(R.layout.subasta_fragment, container, false)
 
         recyclerView = rootView.findViewById(R.id.recyclerSubasta)
@@ -64,7 +63,6 @@ class ofertaFragment : Fragment() {
         })
         return rootView
     }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
